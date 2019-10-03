@@ -3,6 +3,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Customer.Inquiries.DataAccess.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Customer.Inquiries.DataAccess.Base
 {
@@ -15,14 +16,14 @@ namespace Customer.Inquiries.DataAccess.Base
             this.context = context;
         }
 
-        public virtual IQueryable<T> FindAll<T>(Expression<Func<T, bool>> where = null) where T : BaseEntity
+        public virtual IQueryable<T> FindAll<T>(Expression<Func<T, bool>> where = null, string navigationPropertyPath = "") where T : BaseEntity
         {
-            return null != where ? context.Set<T>().Where(where) : context.Set<T>();
+            return (null != where ? context.Set<T>().Where(where) : context.Set<T>()).Include(navigationPropertyPath);
         }
 
-        public virtual T Find<T>(Expression<Func<T, bool>> where = null) where T : BaseEntity
+        public virtual T Find<T>(Expression<Func<T, bool>> where = null, string navigationPropertyPath = "") where T : BaseEntity
         {
-            return FindAll(where).FirstOrDefault();
+            return FindAll(where).Include(navigationPropertyPath).FirstOrDefault();
         }
 
         public async Task<T> CreateAsync<T>(T entity) where T : BaseEntity

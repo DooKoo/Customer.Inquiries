@@ -9,9 +9,14 @@ namespace Customer.Inquiries.DataAccess.Models
     {
         [Key]
         public int TransactionId { get; set; }
-        public DateTime TransactionDateTime { get; set; }
+
+        public DateTimeOffset TransactionDateTime { get; set; }
+
         public decimal Amount { get; set; }
+
+        [Required]
         public string Currency { get; set; }
+
         public ETransactionStatus Status { get; set; }
 
         [ForeignKey("Customer")]

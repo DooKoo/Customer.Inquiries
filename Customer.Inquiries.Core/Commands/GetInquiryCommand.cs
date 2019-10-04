@@ -35,6 +35,8 @@ namespace Customer.Inquiries.Core.Commands
 
         public async Task<CustomerProfileDto> Handle(GetInquiryCommand request, CancellationToken cancellationToken)
         {
+            if (request.CustomerId == null && string.IsNullOrEmpty(request.Email)) return null;
+
             var items = repository.FindAll<DataAccess.Models.Customer>(x =>
             (string.IsNullOrEmpty(request.Email) || request.Email == x.ContactEmail) &&
             (request.CustomerId == null || request.CustomerId.Value == x.CustomerId));

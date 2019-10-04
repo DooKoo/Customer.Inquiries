@@ -19,6 +19,7 @@ using MediatR;
 using Customer.Inquiries.Core.Commands;
 using Customer.Inquiries.DataAccess.Interfaces;
 using Microsoft.AspNetCore.Http;
+using Customer.Inquiries.Web.Security;
 
 namespace Customer.Inquiries.Web
 {
@@ -37,6 +38,34 @@ namespace Customer.Inquiries.Web
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddAuthentication(options =>
+            {
+                //options.DefaultChallengeScheme = ApiAuthenticationHandler.AUTH_SCHEME_NAME;
+            })
+                .AddCookie(cfg => cfg.SlidingExpiration = true)
+                .AddApiKeyAuthenticationMiddleware(o => this.Configuration.GetSection("ApiKeyAuthorization").Bind(o));
+
+
+            //TODO: Clean up this mass
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("ApiPolicy", policyBuilder =>
+                {
+                    policyBuilder.RequireClaim("role");
+                    policyBuilder.RequireAuthenticatedUser();
+
+                    //Multiple authentication schemes can be added and the output from them will then be merged into a single identity.
+                    policyBuilder.AddAuthenticationSchemes(ApiKeyAuthorizationHandler.AUTH_SCHEME_NAME);
+                });
+
+                options.AddPolicy("DefaultPolicy", policyBuilder =>
+                {
+                    policyBuilder.RequireAuthenticatedUser();
+                });
+
+                options.DefaultPolicy = options.GetPolicy("DefaultPolicy");
+            });
+
             services.AddScoped<IRepository, Repository>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
@@ -47,6 +76,19 @@ namespace Customer.Inquiries.Web
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "Customer API", Version = "v1" });
+
+                c.AddSecurityDefinition("ApiKey", new ApiKeyScheme
+                {
+                    Description = "Authorization header using the ApiKey scheme. Example: \"Authorization: ApiKey {token}\"",
+                    Name = "Authorization",
+                    In = "header",
+                    Type = "apiKey"
+                });
+
+                c.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>>
+                {
+                    { "ApiKey", new string[] { } }
+                });
             });
         }
 

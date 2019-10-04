@@ -11,6 +11,14 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using AutoMapper;
+using Customer.Inquiries.DataAccess.Base;
+using Microsoft.EntityFrameworkCore;
+using Swashbuckle.AspNetCore.Swagger;
+using System.Reflection;
+using MediatR;
+using Customer.Inquiries.Core.Commands;
+using Customer.Inquiries.DataAccess.Interfaces;
+using Microsoft.AspNetCore.Http;
 
 namespace Customer.Inquiries.Web
 {
@@ -26,8 +34,20 @@ namespace Customer.Inquiries.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddScoped<IRepository, Repository>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddMediatR(typeof(GetInquiryCommand).GetTypeInfo().Assembly);
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            // Register the Swagger generator, defining 1 or more Swagger documents
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "Customer API", Version = "v1" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,10 +61,26 @@ namespace Customer.Inquiries.Web
             {
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
+
+                app.UseExceptionHandler(a => a.Run(async context =>
+                {
+                    context.Response.StatusCode = 400;
+                }));
             }
 
             app.UseHttpsRedirection();
             app.UseMvc();
+            
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                c.RoutePrefix = string.Empty;
+            });
         }
     }
 }

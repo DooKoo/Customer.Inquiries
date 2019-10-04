@@ -22,9 +22,5 @@ namespace Customer.Inquiries.DataAccess.Models
         public int MobileNumber { get; set; }
 
         public virtual ICollection<Transaction> Transactions { get; set; }
-
-        public Customer()
-        {
-        }
     }
 }

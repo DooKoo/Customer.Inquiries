@@ -21,6 +21,7 @@ using Customer.Inquiries.DataAccess.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Customer.Inquiries.Web.Security;
 using Newtonsoft.Json;
+using Customer.Inquiries.Core;
 
 namespace Customer.Inquiries.Web
 {
@@ -76,7 +77,7 @@ namespace Customer.Inquiries.Web
                 });
 
             services.AddMediatR(typeof(GetInquiryCommand).GetTypeInfo().Assembly);
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddAutoMapper(typeof(DefaultMappingProfile).GetTypeInfo().Assembly);
 
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>

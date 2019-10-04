@@ -29,4 +29,8 @@
   <ItemGroup>
     <Folder Include="Security\" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="DefaultMappingProfile.cs" />
+    <Compile Remove="DefaultMappingProfile.cs" />
+  </ItemGroup>
 </Project>

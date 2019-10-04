@@ -3,7 +3,7 @@ using AutoMapper;
 using Customer.Inquiries.Core.Extensions;
 using Customer.Inquiries.Core.Models;
 
-namespace Customer.Inquiries.Web
+namespace Customer.Inquiries.Core
 {
     public class DefaultMappingProfile : Profile
     {

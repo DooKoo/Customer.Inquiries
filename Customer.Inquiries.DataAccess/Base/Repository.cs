@@ -16,14 +16,14 @@ namespace Customer.Inquiries.DataAccess.Base
             this.context = context;
         }
 
-        public virtual IQueryable<T> FindAll<T>(Expression<Func<T, bool>> where = null, string navigationPropertyPath = "") where T : BaseEntity
+        public virtual IQueryable<T> FindAll<T>(Expression<Func<T, bool>> where = null) where T : BaseEntity
         {
-            return (null != where ? context.Set<T>().Where(where) : context.Set<T>()).Include(navigationPropertyPath);
+            return (null != where ? context.Set<T>().Where(where) : context.Set<T>());
         }
 
-        public virtual T Find<T>(Expression<Func<T, bool>> where = null, string navigationPropertyPath = "") where T : BaseEntity
+        public virtual T Find<T>(Expression<Func<T, bool>> where = null) where T : BaseEntity
         {
-            return FindAll(where).Include(navigationPropertyPath).FirstOrDefault();
+            return FindAll(where).FirstOrDefault();
         }
 
         public async Task<T> CreateAsync<T>(T entity) where T : BaseEntity

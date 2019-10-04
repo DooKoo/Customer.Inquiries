@@ -57,3 +57,15 @@ Customer.Inquiries.Core/bin/Debug/netcoreapp2.2/Customer.Inquiries.Core.pdb
 Customer.Inquiries.Core/bin/Debug/netcoreapp2.2/Customer.Inquiries.Core.dll
 Customer.Inquiries.Core/bin/Debug/netcoreapp2.2/Customer.Inquiries.Core.deps.json
 .vs/Customer.Inquiries/xs/UserPrefs.xml
+Customer.Inquiries.Core/bin/Debug/netcoreapp2.2/Customer.Inquiries.DataAccess.dll
+Customer.Inquiries.Core/bin/Debug/netcoreapp2.2/Customer.Inquiries.DataAccess.pdb
+Customer.Inquiries.Core/obj/Debug/netcoreapp2.2/Customer.Inquiries.Core.csproj.CopyComplete
+Customer.Inquiries.DataAccess/bin/Debug/netcoreapp2.2/Customer.Inquiries.DataAccess.runtimeconfig.dev.json
+Customer.Inquiries.DataAccess/bin/Debug/netcoreapp2.2/Customer.Inquiries.DataAccess.runtimeconfig.json
+Customer.Inquiries.DataAccess/obj/Customer.Inquiries.DataAccess.csproj.EntityFrameworkCore.targets
+Customer.Inquiries.Web/bin/Debug/netcoreapp2.2/Customer.Inquiries.Core.dll
+Customer.Inquiries.Web/bin/Debug/netcoreapp2.2/Customer.Inquiries.Core.pdb
+Customer.Inquiries.Web/bin/Debug/netcoreapp2.2/Customer.Inquiries.DataAccess.dll
+Customer.Inquiries.Web/bin/Debug/netcoreapp2.2/Customer.Inquiries.DataAccess.pdb
+Customer.Inquiries.Web/obj/Customer.Inquiries.Web.csproj.EntityFrameworkCore.targets
+Customer.Inquiries.Web/obj/Debug/netcoreapp2.2/Customer.Inquiries.Web.csproj.CopyComplete

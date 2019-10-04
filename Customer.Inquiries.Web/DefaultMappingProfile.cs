@@ -1,5 +1,6 @@
 ﻿using System;
 using AutoMapper;
+using Customer.Inquiries.Core.Extensions;
 using Customer.Inquiries.Core.Models;
 
 namespace Customer.Inquiries.Web
@@ -10,6 +11,7 @@ namespace Customer.Inquiries.Web
         {
             CreateMap<DataAccess.Models.Transaction, TransactionDto>()
                 .ForMember(x => x.Date, cfg => cfg.MapFrom(x => x.TransactionDateTime))
+                .ForMember(x => x.Status, cfg => cfg.MapFrom(x => x.Status.GetDescription()))
                 .ForMember(x => x.Id, cfg => cfg.MapFrom(x => x.TransactionId));
 
             CreateMap<DataAccess.Models.Customer, CustomerProfileDto>()

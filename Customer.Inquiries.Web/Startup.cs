@@ -20,6 +20,7 @@ using Customer.Inquiries.Core.Commands;
 using Customer.Inquiries.DataAccess.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Customer.Inquiries.Web.Security;
+using Newtonsoft.Json;
 
 namespace Customer.Inquiries.Web
 {
@@ -67,7 +68,12 @@ namespace Customer.Inquiries.Web
             });
 
             services.AddScoped<IRepository, Repository>();
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+                .AddJsonOptions(options =>
+                {
+                    options.SerializerSettings.DateFormatString = "dd/MM/yyyy HH:mm";
+                });
 
             services.AddMediatR(typeof(GetInquiryCommand).GetTypeInfo().Assembly);
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

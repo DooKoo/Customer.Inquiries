@@ -18,8 +18,8 @@ namespace Customer.Inquiries.Core.Extensions
         {
             Object instance = validationContext.ObjectInstance;
             Type type = instance.GetType();
-            Object proprtyvalue = type.GetProperty(PropertyName).GetValue(instance, null);
-            if (value == null)
+            Object proprtyValue = type.GetProperty(PropertyName).GetValue(instance, null);
+            if (proprtyValue == null)
             {
                 return new ValidationResult(ErrorMessage);
             }

@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Customer.Inquiries.Web.Controllers
 {
-    [Route("api/[controller]/inquiry")]
+    [Route("api/customers/inquiry")]
     [ApiController]
     [Authorize("ApiPolicy")]
     public class CustomersController : Controller
@@ -23,7 +23,11 @@ namespace Customer.Inquiries.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery]GetCustomerQuery request)
         {
-            return Json(await mediator.Send(request));
+            var customerProfile = await mediator.Send(request);
+
+            if (customerProfile == null) return NotFound();
+
+            return Json(customerProfile);
         }
     }
 }

@@ -8,7 +8,7 @@ using NUnit.Framework;
 
 namespace Customer.Inquiries.Tests.Commands
 {
-    public class GetInquiryCommandTest : BaseCommandTest
+    public class GetCustomerQueryTest : BaseCommandTest
     {
         [Test]
         public async Task EmptyTest()

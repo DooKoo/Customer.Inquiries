@@ -6,7 +6,6 @@ namespace Customer.Inquiries.Core.Extensions
     public class RequiredIfNullAttribute : ValidationAttribute
     {
         private String PropertyName { get; set; }
-        private String ErrorMessage { get; set; }
 
         public RequiredIfNullAttribute(String propertyName, String errormessage)
         {

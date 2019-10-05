@@ -10,30 +10,30 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Customer.Inquiries.Core.Extensions;
 
-namespace Customer.Inquiries.Core.Commands
+namespace Customer.Inquiries.Core.Queries
 {
-    public class GetInquiryCommand : IRequest<CustomerProfileDto>
+    public class GetCustomerQuery : IRequest<CustomerProfileDto>
     {
         [Range(0, 99999, ErrorMessage = "Invalid Customer ID")]
         public int? CustomerId { get; set; }
 
         [EmailAddress(ErrorMessage = "Invalid Email")]
-        [RequiredIfNull(nameof(GetInquiryCommand.CustomerId), "No inquiry criteria")]
+        [RequiredIfNull(nameof(GetCustomerQuery.CustomerId), "No inquiry criteria")]
         public string Email { get; set; }
     }
 
-    public class GetInquiryCommandHandler : IRequestHandler<GetInquiryCommand, CustomerProfileDto>
+    public class GetCustomerQueryHandler : IRequestHandler<GetCustomerQuery, CustomerProfileDto>
     {
         private readonly IRepository repository;
         private readonly IMapper mapper;
 
-        public GetInquiryCommandHandler(IRepository repository, IMapper mapper)
+        public GetCustomerQueryHandler(IRepository repository, IMapper mapper)
         {
             this.repository = repository;
             this.mapper = mapper;
         }
 
-        public async Task<CustomerProfileDto> Handle(GetInquiryCommand request, CancellationToken cancellationToken)
+        public async Task<CustomerProfileDto> Handle(GetCustomerQuery request, CancellationToken cancellationToken)
         {
             if (request.CustomerId == null && string.IsNullOrEmpty(request.Email)) return null;
 

@@ -16,7 +16,7 @@ using Microsoft.EntityFrameworkCore;
 using Swashbuckle.AspNetCore.Swagger;
 using System.Reflection;
 using MediatR;
-using Customer.Inquiries.Core.Commands;
+using Customer.Inquiries.Core.Queries;
 using Customer.Inquiries.DataAccess.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Customer.Inquiries.Web.Security;
@@ -76,7 +76,7 @@ namespace Customer.Inquiries.Web
                     options.SerializerSettings.DateFormatString = "dd/MM/yyyy HH:mm";
                 });
 
-            services.AddMediatR(typeof(GetInquiryCommand).GetTypeInfo().Assembly);
+            services.AddMediatR(typeof(GetCustomerQuery).GetTypeInfo().Assembly);
             services.AddAutoMapper(typeof(DefaultMappingProfile).GetTypeInfo().Assembly);
 
             // Register the Swagger generator, defining 1 or more Swagger documents
@@ -111,9 +111,10 @@ namespace Customer.Inquiries.Web
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
 
-                app.UseExceptionHandler(a => a.Run(async context =>
+                app.UseExceptionHandler(a => a.Run(context =>
                 {
                     context.Response.StatusCode = 400;
+                    return Task.CompletedTask;
                 }));
             }
 

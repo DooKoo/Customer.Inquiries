@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Customer.Inquiries.Core.Commands;
+using Customer.Inquiries.Core.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -21,7 +21,7 @@ namespace Customer.Inquiries.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get([FromQuery]GetInquiryCommand request)
+        public async Task<IActionResult> Get([FromQuery]GetCustomerQuery request)
         {
             return Json(await mediator.Send(request));
         }

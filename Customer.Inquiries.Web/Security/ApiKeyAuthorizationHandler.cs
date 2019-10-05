@@ -21,7 +21,7 @@ namespace Customer.Inquiries.Web.Security
         {
         }
 
-        protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
+        protected override Task<AuthenticateResult> HandleAuthenticateAsync()
         {
             string authValue = "";
             bool authenticated = Context.User.Identity.IsAuthenticated;
@@ -30,14 +30,14 @@ namespace Customer.Inquiries.Web.Security
             {
                 if (!Context.Request.Headers.TryGetValue(HEADER_NAME, out var headerValue))
                 {
-                    return AuthenticateResult.NoResult();
+                    return Task.FromResult(AuthenticateResult.NoResult());
                 }
 
                 var headerValueAsString = headerValue.ToString();
 
-                if (string.IsNullOrWhiteSpace(headerValueAsString) || (!headerValueAsString.StartsWith(AUTH_SCHEME_NAME)))
+                if (string.IsNullOrWhiteSpace(headerValueAsString) || (!headerValueAsString.StartsWith(AUTH_SCHEME_NAME, StringComparison.Ordinal)))
                 {
-                    return AuthenticateResult.NoResult();
+                    return Task.FromResult(AuthenticateResult.NoResult());
                 }
                 // Remove the scheme and trim
                 authValue = headerValueAsString.Substring(AUTH_SCHEME_NAME.Length).Trim();
@@ -52,13 +52,13 @@ namespace Customer.Inquiries.Web.Security
             }
             else
             {
-                return AuthenticateResult.Fail("Wrong api key");
+                return Task.FromResult(AuthenticateResult.Fail("Wrong api key"));
             }
 
             var authProperties = new AuthenticationProperties();
             var authenticationTicket = new AuthenticationTicket(new ClaimsPrincipal(identity), authProperties, AUTH_SCHEME_NAME);
 
-            return AuthenticateResult.Success(authenticationTicket);
+            return Task.FromResult(AuthenticateResult.Success(authenticationTicket));
         }
     }
 

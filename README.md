@@ -14,7 +14,7 @@ Solution was deployed on Azure App Services you can check it on following url:
 https://mu9tmdc38ahxxru6.azurewebsites.net 
 
 To use service you have to authorize with next header: 
-> ApiKey b030266d-4182-439f-8844-25703fcfbdae
+> Authorization: ApiKey b030266d-4182-439f-8844-25703fcfbdae
 
 There is an authorization helper in the Swagger UI.
 

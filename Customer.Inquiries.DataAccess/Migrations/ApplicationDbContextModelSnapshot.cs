@@ -21,7 +21,7 @@ namespace Customer.Inquiries.DataAccess.Migrations
 
             modelBuilder.Entity("Customer.Inquiries.DataAccess.Models.Customer", b =>
                 {
-                    b.Property<int>("CustomerId")
+                    b.Property<long>("CustomerId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -37,7 +37,7 @@ namespace Customer.Inquiries.DataAccess.Migrations
 
                     b.Property<DateTimeOffset?>("DeletedDate");
 
-                    b.Property<int>("MobileNumber");
+                    b.Property<long>("MobileNumber");
 
                     b.Property<DateTimeOffset?>("UpdatedDate");
 
@@ -54,7 +54,7 @@ namespace Customer.Inquiries.DataAccess.Migrations
 
             modelBuilder.Entity("Customer.Inquiries.DataAccess.Models.Transaction", b =>
                 {
-                    b.Property<int>("TransactionId")
+                    b.Property<long>("TransactionId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -64,9 +64,10 @@ namespace Customer.Inquiries.DataAccess.Migrations
                     b.Property<DateTimeOffset>("CreatedDate");
 
                     b.Property<string>("Currency")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(3);
 
-                    b.Property<int>("CustomerId");
+                    b.Property<long>("CustomerId");
 
                     b.Property<DateTimeOffset?>("DeletedDate");
 

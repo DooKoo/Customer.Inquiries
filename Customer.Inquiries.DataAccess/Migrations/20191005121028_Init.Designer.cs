@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Customer.Inquiries.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20191003193605_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20191005121028_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,7 +23,7 @@ namespace Customer.Inquiries.DataAccess.Migrations
 
             modelBuilder.Entity("Customer.Inquiries.DataAccess.Models.Customer", b =>
                 {
-                    b.Property<int>("CustomerId")
+                    b.Property<long>("CustomerId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -39,7 +39,7 @@ namespace Customer.Inquiries.DataAccess.Migrations
 
                     b.Property<DateTimeOffset?>("DeletedDate");
 
-                    b.Property<int>("MobileNumber");
+                    b.Property<long>("MobileNumber");
 
                     b.Property<DateTimeOffset?>("UpdatedDate");
 
@@ -56,18 +56,20 @@ namespace Customer.Inquiries.DataAccess.Migrations
 
             modelBuilder.Entity("Customer.Inquiries.DataAccess.Models.Transaction", b =>
                 {
-                    b.Property<int>("TransactionId")
+                    b.Property<long>("TransactionId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<decimal>("Amount");
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(16,2)");
 
                     b.Property<DateTimeOffset>("CreatedDate");
 
                     b.Property<string>("Currency")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(3);
 
-                    b.Property<int>("CustomerId");
+                    b.Property<long>("CustomerId");
 
                     b.Property<DateTimeOffset?>("DeletedDate");
 

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Customer.Inquiries.DataAccess.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,14 +12,14 @@ namespace Customer.Inquiries.DataAccess.Migrations
                 name: "Customers",
                 columns: table => new
                 {
-                    CustomerId = table.Column<int>(nullable: false)
+                    CustomerId = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CreatedDate = table.Column<DateTimeOffset>(nullable: false),
                     UpdatedDate = table.Column<DateTimeOffset>(nullable: true),
                     DeletedDate = table.Column<DateTimeOffset>(nullable: true),
                     CustomerName = table.Column<string>(maxLength: 30, nullable: false),
                     ContactEmail = table.Column<string>(maxLength: 25, nullable: false),
-                    MobileNumber = table.Column<int>(nullable: false)
+                    MobileNumber = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -30,16 +30,16 @@ namespace Customer.Inquiries.DataAccess.Migrations
                 name: "Transactions",
                 columns: table => new
                 {
-                    TransactionId = table.Column<int>(nullable: false)
+                    TransactionId = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CreatedDate = table.Column<DateTimeOffset>(nullable: false),
                     UpdatedDate = table.Column<DateTimeOffset>(nullable: true),
                     DeletedDate = table.Column<DateTimeOffset>(nullable: true),
                     TransactionDateTime = table.Column<DateTimeOffset>(nullable: false),
-                    Amount = table.Column<decimal>(nullable: false),
-                    Currency = table.Column<string>(nullable: false),
+                    Amount = table.Column<decimal>(type: "decimal(16,2)", nullable: false),
+                    Currency = table.Column<string>(maxLength: 3, nullable: false),
                     Status = table.Column<int>(nullable: false),
-                    CustomerId = table.Column<int>(nullable: false)
+                    CustomerId = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {

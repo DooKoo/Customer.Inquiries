@@ -8,7 +8,7 @@ namespace Customer.Inquiries.DataAccess.Models
     public class Customer : BaseEntity
     {
         [Key]
-        public int CustomerId { get; set; }
+        public long CustomerId { get; set; }
 
         [Required]
         [StringLength(30)]
@@ -19,7 +19,7 @@ namespace Customer.Inquiries.DataAccess.Models
         public string ContactEmail { get; set; }
 
         [Required]
-        public int MobileNumber { get; set; }
+        public long MobileNumber { get; set; }
 
         public virtual ICollection<Transaction> Transactions { get; set; }
     }

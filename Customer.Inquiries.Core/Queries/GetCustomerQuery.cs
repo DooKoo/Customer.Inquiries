@@ -14,8 +14,8 @@ namespace Customer.Inquiries.Core.Queries
 {
     public class GetCustomerQuery : IRequest<CustomerProfileDto>
     {
-        [Range(0, 99999, ErrorMessage = "Invalid Customer ID")]
-        public int? CustomerId { get; set; }
+        [Range(0, 9999999999, ErrorMessage = "Invalid Customer ID")]
+        public long? CustomerId { get; set; }
 
         [EmailAddress(ErrorMessage = "Invalid Email")]
         [RequiredIfNull(nameof(GetCustomerQuery.CustomerId), "No inquiry criteria")]

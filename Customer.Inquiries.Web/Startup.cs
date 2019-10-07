@@ -76,7 +76,13 @@ namespace Customer.Inquiries.Web
                     options.SerializerSettings.DateFormatString = "dd/MM/yyyy HH:mm";
                 });
 
-            services.AddMediatR(typeof(GetCustomerQuery).GetTypeInfo().Assembly);
+			services.Configure<ApiBehaviorOptions>(options =>
+			{
+				options.InvalidModelStateResponseFactory = context => 
+					new BadRequestObjectResult(context.ModelState.FirstOrDefault().Value.Errors[0].ErrorMessage);
+			});
+
+			services.AddMediatR(typeof(GetCustomerQuery).GetTypeInfo().Assembly);
             services.AddAutoMapper(typeof(DefaultMappingProfile).GetTypeInfo().Assembly);
 
             // Register the Swagger generator, defining 1 or more Swagger documents

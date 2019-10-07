@@ -23,7 +23,7 @@ namespace Customer.Inquiries.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery]GetCustomerQuery request)
         {
-            var customerProfile = await mediator.Send(request);
+			var customerProfile = await mediator.Send(request);
 
             if (customerProfile == null) return NotFound();
 

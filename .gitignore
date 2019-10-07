@@ -134,3 +134,10 @@ Customer.Inquiries.Web/obj/Release/netcoreapp2.2/PubTmp/Out/appsettings.json
 Customer.Inquiries.Web/obj/Release/netcoreapp2.2/PubTmp/Out/appsettings.Development.json
 Customer.Inquiries.Web/obj/Release/netcoreapp2.2/PubTmp/Customer.Inquiries.Web.SourceManifest.xml
 Customer.Inquiries.Web/obj/Release/netcoreapp2.2/PubTmp/Customer.Inquiries.Web.Parameters.xml
+/.vs
+/Customer.Inquiries.Core/obj/Release/netcoreapp2.2
+/Customer.Inquiries.Tests/obj/Release/netcoreapp2.2
+/Customer.Inquiries.DataAccess/obj/Release/netcoreapp2.2/Customer.Inquiries.DataAccess.AssemblyInfoInputs.cache
+/Customer.Inquiries.DataAccess/obj/Release/netcoreapp2.2/Customer.Inquiries.DataAccess.AssemblyInfo.cs
+/Customer.Inquiries.DataAccess/obj/Release/netcoreapp2.2
+/Customer.Inquiries.Web/obj/Release/netcoreapp2.2
